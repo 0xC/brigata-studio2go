@@ -13,9 +13,55 @@ log in with a password you set, and everything runs locally.
 ## What you need
 
 - A Linux host (Ubuntu/Debian tested) — a laptop, a mini-PC, or a small VPS.
-- **Node.js 20+** and **PostgreSQL** (the installer sets up the database for you).
+- **Node.js 20+** and **PostgreSQL** — install steps below.
 - An **Anthropic API key** (`sk-ant-api03-…`) or a Claude subscription token
-  (`sk-ant-oat01-…`). Your agent runs on this key; nothing is shared with anyone.
+  (`sk-ant-oat01-…`, from `claude setup-token`). Your agent runs on this
+  credential — you can run entirely on your Claude Pro/Max subscription, no
+  separate API billing required. Nothing is shared with anyone.
+
+### Install the prerequisites
+
+The installer does **not** install Node or Postgres for you — it checks they're
+present and sets up the database *inside* your Postgres. Install them first.
+
+**Ubuntu / Debian:**
+
+```bash
+# Postgres (server + client; creates the 'postgres' superuser + starts the service)
+sudo apt-get update
+sudo apt-get install -y curl git postgresql
+
+# Node.js 20+ (NodeSource — installs system-wide, works under systemd)
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+**Fedora / RHEL:**
+
+```bash
+sudo dnf install -y git postgresql-server postgresql
+sudo postgresql-setup --initdb
+sudo systemctl enable --now postgresql
+curl -fsSL https://rpm.nodesource.com/setup_22.x | sudo bash -
+sudo dnf install -y nodejs
+```
+
+**macOS (Homebrew):**
+
+```bash
+brew install node@22 postgresql@16
+brew services start postgresql@16
+```
+
+Verify before continuing (Node must be **20 or higher**):
+
+```bash
+node -v      # v20+  (this setup gives v22 LTS)
+psql --version
+```
+
+The installer creates the database role, database, and `uuid-ossp` extension
+itself using the local `postgres` superuser — you don't create them by hand.
 
 ## Install
 
