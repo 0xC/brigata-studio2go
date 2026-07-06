@@ -93,7 +93,7 @@ function secretMatches(provided: string, expected: string): boolean {
 // Only active when STANDALONE_MODE is set. There is no Google OAuth in a
 // self-host install; the single operator authenticates with a shared password
 // (STANDALONE_ADMIN_PASSWORD) and gets a session for the synthetic admin user.
-// Modeled on /test-login above, but this user IS an admin and there is no
+// A secret-gated synthetic-user login: this user IS an admin and there is no
 // allowlist gate (self-host is single-tenant by design). Inert (404) unless
 // both STANDALONE_MODE and STANDALONE_ADMIN_PASSWORD are set.
 auth.post('/standalone-login', async (req, res) => {
