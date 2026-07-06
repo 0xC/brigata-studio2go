@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" type="image/png" href="/favicon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#17171b" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Brigata" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
+    <title>brigata.ai studio</title>
+    <script>
+      (function () {
+        try {
+          var cache = JSON.parse(localStorage.getItem('bw_prefs_cache') || '{}')
+          var theme = cache.theme
+          var valid = ['graphite', 'ember', 'atelier']
+          // Migrate retired theme values to the Brigata themes.
+          var legacy = {
+            dark: 'graphite', dracula: 'graphite', nord: 'graphite',
+            'solarized-dark': 'graphite', 'catppuccin-mocha': 'graphite',
+            light: 'atelier', 'solarized-light': 'atelier',
+          }
+          if (legacy[theme]) theme = legacy[theme]
+          // No saved theme (guests, new users): default to Charcoal (graphite) —
+          // the Brigata default everywhere, including the marketing landing (which
+          // the public pages below already force). Don't key off
+          // prefers-color-scheme (it sent light-mode guests to Atelier and
+          // created a landing↔app theme mismatch).
+          if (valid.indexOf(theme) === -1) {
+            theme = 'graphite'
+          }
+          // The public website pages (legal + marketing) always render in the
+          // Charcoal theme, regardless of the visitor's saved app theme.
+          var p = location.pathname
+          if (p === '/about' || p === '/contact' || p === '/privacy' || p === '/terms' || p === '/help' || p === '/faq') {
+            theme = 'graphite'
+          }
+          document.documentElement.setAttribute('data-theme', theme)
+        } catch (_) {
+          document.documentElement.setAttribute('data-theme', 'graphite')
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

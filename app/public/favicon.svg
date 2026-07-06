@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1e1e24"/>
+      <stop offset="1" stop-color="#101013"/>
+    </linearGradient>
+    <radialGradient id="d1" cx="0" cy="0" r="1" gradientTransform="translate(8.5 13) scale(4)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ede9fe"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </radialGradient>
+    <radialGradient id="d2" cx="0" cy="0" r="1" gradientTransform="translate(15 8) scale(4.5)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ddd6fe"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </radialGradient>
+    <radialGradient id="d3" cx="0" cy="0" r="1" gradientTransform="translate(23 12.5) scale(5.4)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c4b5fd"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </radialGradient>
+    <radialGradient id="d4" cx="0" cy="0" r="1" gradientTransform="translate(16 23) scale(3.6)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ede9fe"/>
+      <stop offset="1" stop-color="#9d7bf0"/>
+    </radialGradient>
+  </defs>
+  <rect width="32" height="32" rx="7" fill="url(#bg)"/>
+  <!-- open, branching constellation edges — reads as a star map, not a closed trio -->
+  <g stroke="#a78bfa" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" opacity="0.5" fill="none">
+    <path d="M8.5 13 L15 8 L23 12.5"/>
+    <path d="M15 8 L16 23"/>
+  </g>
+  <circle cx="8.5" cy="13" r="2.3" fill="url(#d1)"/>
+  <circle cx="15" cy="8" r="2.7" fill="url(#d2)"/>
+  <circle cx="23" cy="12.5" r="3.6" fill="url(#d3)"/>
+  <circle cx="16" cy="23" r="2.1" fill="url(#d4)"/>
+</svg>

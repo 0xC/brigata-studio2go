@@ -1,0 +1,16 @@
+{
+  "name": "Brigata Studio",
+  "short_name": "Brigata",
+  "description": "Your team of AI agents — chat, documents, and your brigade, on the go.",
+  "id": "/",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#17171b",
+  "theme_color": "#17171b",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/favicon.png", "sizes": "256x256", "type": "image/png", "purpose": "any" }
+  ]
+}
