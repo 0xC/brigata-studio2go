@@ -3715,7 +3715,7 @@ function AgentHosting({
                 <code>claude setup-token</code> on any machine with the Claude
                 CLI; it'll print an <code>sk-ant-oat-...</code> token.
               </div>
-              <CopyableCode code={`curl -fsSL https://dev.brigata.ai/install.sh | \\
+              <CopyableCode code={`curl -fsSL https://studio.example.com/install.sh | \\
   BRIDGE_TOKEN=${issuedToken ?? '<your-bridge-token>'} \\
   BRIDGE_AGENT_NAME=${JSON.stringify(agent.name)} \\
   BRIDGE_PRIVILEGE=${privilege} \\
@@ -3727,7 +3727,7 @@ function AgentHosting({
                 <code>console.anthropic.com</code>; format is{' '}
                 <code>sk-ant-api03-...</code>.
               </div>
-              <CopyableCode code={`curl -fsSL https://dev.brigata.ai/install.sh | \\
+              <CopyableCode code={`curl -fsSL https://studio.example.com/install.sh | \\
   BRIDGE_TOKEN=${issuedToken ?? '<your-bridge-token>'} \\
   BRIDGE_AGENT_NAME=${JSON.stringify(agent.name)} \\
   BRIDGE_PRIVILEGE=${privilege} \\

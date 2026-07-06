@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { IconChannel, IconBrigade, IconDocument, IconDashboard, IconGear, IconFocus, IconRelay } from './lib/icons'
 
-// Interactive "Northwind" showcase for the redesign (preview.brigata.ai/?demo=1).
+// Interactive "Northwind" showcase for the redesign (studio.example.com/?demo=1).
 // The real command-center shell + .cc-* styles, driven by curated sample data
 // you can actually click around in: switch rooms, type, send, and get a scripted
 // reply from that room's lead agent. Clearly badged as sample data — never the

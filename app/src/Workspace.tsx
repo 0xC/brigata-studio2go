@@ -944,7 +944,7 @@ export function Workspace({ me, onLogout }: { me: NonNullable<Me>; onLogout: () 
   async function acceptInviteByToken() {
     const raw = wsAcceptToken.trim()
     if (!raw || wsActionBusy) return
-    // Accept either a full URL (https://dev.brigata.ai/invite/<token>) or a bare token.
+    // Accept either a full URL (https://studio.example.com/invite/<token>) or a bare token.
     const tokenMatch = raw.match(/(?:\/invite\/|^)([A-Za-z0-9_-]{8,})/)
     const token = tokenMatch ? tokenMatch[1] : raw
     setWsActionBusy(true); setWsActionError(null)

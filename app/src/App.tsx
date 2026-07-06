@@ -88,7 +88,7 @@ export default function App() {
     if (path === '/terms') return <Terms />
     if (path === '/help' || path === '/faq') return <Help />
     // Shareable, replayable onboarding walkthrough (no login, nothing saved).
-    // Off production by default — meant for preview.brigata.ai/obdemo.
+    // Off production by default — meant for studio.example.com/obdemo.
     if (path === '/obdemo' && !/(^|\.)app\.brigata\.ai$/.test(window.location.hostname)) {
       return <Onboarding demo onDone={() => window.location.reload()} userName={null} />
     }
