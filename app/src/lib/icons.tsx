@@ -41,6 +41,19 @@ export const IconPencil = (p: IconProps) => base(p, (
   </>
 ))
 
+// Per-room mute control: speech bubble (agent talks in this room) / bubble with a
+// slash (muted here). Literal for text chat — a chat bubble is "talking".
+export const IconSpeech = (p: IconProps) => base(p, (
+  <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+))
+
+export const IconSpeechOff = (p: IconProps) => base(p, (
+  <>
+    <path d="M8.5 4.5A9 9 0 0 1 19.5 15.5M6 6a9 9 0 0 0-2 9.6L2 22l6.4-2A9 9 0 0 0 18 18" />
+    <line x1="2" x2="22" y1="2" y2="22" />
+  </>
+))
+
 export const IconTrash = (p: IconProps) => base(p, (
   <>
     <path d="M3 6h18" />
@@ -177,11 +190,9 @@ export const IconGear = (p: IconProps) => base(p, (
   </>
 ))
 
-// Brigata channel glyph — the brand constellation. Three stars in the exact
-// triangle of the favicon (scaled from its 32px viewBox), now joined by faint
-// connecting lines so it reads unmistakably as a constellation rather than a
-// generic cluster of dots. Monochrome (currentColor) so it tints with theme/
-// hover/active. This replaces the Slack-style # as the room prefix.
+// Brigata brand glyph — "Nucleus": six orbs coordinated around a command core,
+// matching the marketing logo (brigata.ai) and favicon. Monochrome (currentColor)
+// so it tints with theme/hover/active. Also serves as the Slack-style room prefix.
 export const IconChannel = (p: IconProps) => {
   const { size = 14, ...rest } = p
   return (
@@ -194,16 +205,25 @@ export const IconChannel = (p: IconProps) => {
       className={rest.className}
       aria-hidden="true"
     >
-      {/* constellation lines — faint triangle joining the three stars */}
-      <g stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" opacity="0.4">
-        <path d="M7.5 8.5 L16.5 9.5 L10.5 17 Z" />
+      {/* connectors — core to each orb */}
+      <g stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.42">
+        <path d="M12 12 L12 4" />
+        <path d="M12 12 L18.9 8" />
+        <path d="M12 12 L18.9 16" />
+        <path d="M12 12 L12 20" />
+        <path d="M12 12 L5.1 16" />
+        <path d="M12 12 L5.1 8" />
       </g>
-      {/* the three brand stars (largest = the lead, per the favicon) */}
+      {/* six orbs (the crew) + the command core */}
       <g fill="currentColor">
-        <circle cx="16.5" cy="9.5" r="2.7" />
-        <circle cx="7.5" cy="8.5" r="2.05" />
-        <circle cx="10.5" cy="17" r="1.85" />
+        <circle cx="12" cy="4" r="1.7" />
+        <circle cx="18.9" cy="8" r="1.7" />
+        <circle cx="18.9" cy="16" r="1.7" />
+        <circle cx="12" cy="20" r="1.7" />
+        <circle cx="5.1" cy="16" r="1.7" />
+        <circle cx="5.1" cy="8" r="1.7" />
       </g>
+      <circle cx="12" cy="12" r="3.4" fill="currentColor" />
     </svg>
   )
 }
