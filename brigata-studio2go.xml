@@ -3,9 +3,10 @@
   <Name>brigata-studio2go</Name>
   <Repository>ghcr.io/0xc/brigata-studio2go:latest</Repository>
   <Registry>https://ghcr.io/0xc/brigata-studio2go</Registry>
+  <TemplateURL>https://raw.githubusercontent.com/0xC/brigata-studio2go/main/brigata-studio2go.xml</TemplateURL>
   <Network>bridge</Network>
   <Privileged>false</Privileged>
-  <Support/>
+  <Support>https://github.com/0xC/brigata-studio2go/issues</Support>
   <Project>https://github.com/0xC/brigata-studio2go</Project>
   <Overview>A private, self-hosted Brigata AI agent + Studio that runs entirely on your Unraid box. No cloud dependency and no inbound connection required — you reach it on your LAN. The only outbound traffic is to the Anthropic API for the model (your key). Password login; embedded Postgres persisted to appdata.</Overview>
   <Category>Productivity: Tools: HomeAutomation:</Category>
