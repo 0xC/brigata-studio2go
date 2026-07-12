@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useStandalone } from './lib/standalone'
 import { AgentAvatar } from './lib/avatar'
 import { isByovps } from './agentHosting'
 import { useResilientWs } from './lib/useWs'
@@ -149,6 +150,7 @@ export function Brigade({
   const [counts, setCounts] = useState<Map<string, number>>(new Map()) // agent_id -> handoffs picked up
   const [usage, setUsage] = useState<Map<string, { turns: number; cost: number }>>(new Map()) // agent_id -> 30d usage
   const wsName = workspaceName ?? ''
+  const standalone = useStandalone()
 
   async function loadUsage() {
     const u = await fetch(`/api/workspaces/${workspaceId}/usage?days=30`).then(r => r.json()).catch(() => null)
@@ -241,7 +243,8 @@ export function Brigade({
           </button>
         </div>
 
-        {/* Plan / tier strip — the upgrade-clarity element */}
+        {/* Plan / tier strip — hidden in self-host (no paid hosting options) */}
+        {standalone !== true && (
         <div
           className="my-7 rounded-[14px] overflow-hidden grid gap-px"
           style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', backgroundColor: 'var(--color-border)', border: '1px solid var(--color-border)' }}
@@ -284,6 +287,7 @@ export function Brigade({
             </div>
           </div>
         </div>
+        )}
 
         {/* Roster grid */}
         {loading ? (
