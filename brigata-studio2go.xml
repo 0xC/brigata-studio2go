@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>brigata-studio2go</Name>
+  <Repository>ghcr.io/0xc/brigata-studio2go:latest</Repository>
+  <Registry>https://ghcr.io/0xc/brigata-studio2go</Registry>
+  <Network>bridge</Network>
+  <Privileged>false</Privileged>
+  <Support/>
+  <Project>https://github.com/0xC/brigata-studio2go</Project>
+  <Overview>A private, self-hosted Brigata AI agent + Studio that runs entirely on your Unraid box. No cloud dependency and no inbound connection required — you reach it on your LAN. The only outbound traffic is to the Anthropic API for the model (your key). Password login; embedded Postgres persisted to appdata.</Overview>
+  <Category>Productivity: Tools: HomeAutomation:</Category>
+  <WebUI>http://[IP]:[PORT:3030]/</WebUI>
+  <Icon>https://brigata.ai/favicon.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <DonateText/>
+  <Description>Self-hosted single-tenant Brigata Studio (Studio-to-Go). One admin (password login), one workspace, one in-process agent. Set an admin password and your Anthropic API key, map a data volume, and open the WebUI on port 3030. Optionally mount /mnt/user and the Docker socket to let the agent see and manage your homelab (e.g. set up Frigate/NVR) — both are opt-in and powerful, so enable only if you want write access.</Description>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish>
+      <Port><HostPort>3030</HostPort><ContainerPort>3030</ContainerPort><Protocol>tcp</Protocol></Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/brigata-studio2go</HostDir>
+      <ContainerDir>/var/lib/postgresql</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Value/>
+      <Name>STANDALONE_ADMIN_PASSWORD</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>ANTHROPIC_API_KEY</Name>
+      <Mode/>
+    </Variable>
+  </Environment>
+
+  <!-- Unraid template UI hints -->
+  <Config Name="WebUI Port" Target="3030" Default="3030" Mode="tcp" Description="Port the Studio web UI + API listen on" Type="Port" Display="always" Required="true" Mask="false">3030</Config>
+  <Config Name="Data (Postgres + config)" Target="/var/lib/postgresql" Default="/mnt/user/appdata/brigata-studio2go" Mode="rw" Description="Persistent data — the embedded database and generated config. Survives updates." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/brigata-studio2go</Config>
+  <Config Name="Admin password" Target="STANDALONE_ADMIN_PASSWORD" Default="" Mode="" Description="The login password for the admin user (set on first boot)" Type="Variable" Display="always" Required="true" Mask="true"/>
+  <Config Name="Anthropic API key" Target="ANTHROPIC_API_KEY" Default="" Mode="" Description="sk-ant-api03-... or sk-ant-oat01-... — used only when the agent runs" Type="Variable" Display="always" Required="true" Mask="true"/>
+  <Config Name="Homelab access (optional)" Target="/mnt/user" Default="/mnt/user" Mode="rw" Description="OPTIONAL: mount your shares so the agent can read/manage files (e.g. Frigate config). Remove to keep it isolated." Type="Path" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="Docker control (optional, powerful)" Target="/var/run/docker.sock" Default="/var/run/docker.sock" Mode="rw" Description="OPTIONAL + ROOT-EQUIVALENT: lets the agent create/manage containers (e.g. set up an NVR). Only enable if you want that." Type="Path" Display="advanced" Required="false" Mask="false"/>
+</Container>
