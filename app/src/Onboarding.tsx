@@ -180,7 +180,7 @@ type Idea = {
   plan: [string, string, string]
 }
 
-export function Onboarding({ onDone, userName, demo = false }: { onDone: () => void; userName?: string | null; demo?: boolean }) {
+export function Onboarding({ onDone, userName, demo = false, standalone = false }: { onDone: () => void; userName?: string | null; demo?: boolean; standalone?: boolean }) {
   const [step, setStep] = useState<Step>('intro')
   const [answers, setAnswers] = useState<Answers>({})
   const [agentNames, setAgentNames] = useState<Record<string, string>>({})
@@ -276,7 +276,7 @@ export function Onboarding({ onDone, userName, demo = false }: { onDone: () => v
     const timers = SETUP_STEPS.map((_, i) => setTimeout(() => setSetupDone(i + 1), per * (i + 1)))
     // After the last check lands, hold a beat, then hand off to the crew reveal
     // (if there's a crew to meet) before the final scene.
-    const afterSetup = crewList.length ? 'assemble' : (demo ? 'done' : 'claude')
+    const afterSetup = crewList.length ? 'assemble' : (demo || standalone ? 'done' : 'claude')
     const advance = setTimeout(() => setStep(afterSetup), per * SETUP_STEPS.length + 1500)
     return () => { timers.forEach(clearTimeout); clearTimeout(advance) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -291,7 +291,7 @@ export function Onboarding({ onDone, userName, demo = false }: { onDone: () => v
     const timers = crewList.map((_, i) => setTimeout(() => setAssembled(i + 1), 400 + per * i))
     // Let the whole crew sit there and breathe before advancing — Chris noted the
     // old hold cut the moment off. ~3.6s after the last hello lands.
-    const advance = setTimeout(() => setStep(demo ? 'done' : 'claude'), 400 + per * n + 3600)
+    const advance = setTimeout(() => setStep(demo || standalone ? 'done' : 'claude'), 400 + per * n + 3600)
     return () => { timers.forEach(clearTimeout); clearTimeout(advance) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step])

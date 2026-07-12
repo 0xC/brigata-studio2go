@@ -103,7 +103,7 @@ export default function App() {
     if (onboardingProfile === undefined) return null
     // No profile yet → show the wizard.
     if (onboardingProfile === null) {
-      return <Onboarding onDone={() => setOnboardingProfile({})} userName={me.name} />
+      return <Onboarding standalone={standalone === true} onDone={() => setOnboardingProfile({})} userName={me.name} />
     }
     return <Workspace me={me} onLogout={logout} />
   }
