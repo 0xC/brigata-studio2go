@@ -295,7 +295,7 @@ export function Brigade({
         ) : (
           <div className="grid gap-[18px]" style={{ gridTemplateColumns: 'repeat(auto-fill,minmax(320px,1fr))' }}>
             {members.map(m => (
-              <MemberCard key={m.id} m={m} handoffs={counts.get(m.id) ?? 0} usage={usage.get(m.id)} onManage={() => onManage(m.id)} />
+              <MemberCard key={m.id} m={m} handoffs={counts.get(m.id) ?? 0} usage={usage.get(m.id)} onManage={() => onManage(m.id)} standalone={standalone} />
             ))}
             <button
               onClick={onNew}
@@ -498,7 +498,7 @@ function ProInfoModal({ proCount, onClose }: { proCount: number; onClose: () => 
   )
 }
 
-function MemberCard({ m, handoffs = 0, usage, onManage }: { m: Member; handoffs?: number; usage?: { turns: number; cost: number }; onManage: () => void }) {
+function MemberCard({ m, handoffs = 0, usage, onManage, standalone }: { m: Member; handoffs?: number; usage?: { turns: number; cost: number }; onManage: () => void; standalone?: boolean }) {
   const isPro = m.hosting === 'pro_droplet'
   const isByo = isByovps(m.hosting)
   const dot = statusDot(m.status)
@@ -626,7 +626,7 @@ function MemberCard({ m, handoffs = 0, usage, onManage }: { m: Member; handoffs?
         >
           Manage
         </button>
-        {!isPro && (
+        {!isPro && standalone !== true && (
           <button
             onClick={onManage}
             title={`Move ${m.name} onto a Pro server`}

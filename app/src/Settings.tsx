@@ -440,6 +440,7 @@ function SettingsLanding({
   onNewAgent: () => void
   workspaceId: string
 }) {
+  const standalone = useStandalone()
   return (
     <div className="p-6 max-w-2xl mx-auto w-full">
       <h1 className="text-lg font-medium">Settings</h1>
@@ -487,12 +488,14 @@ function SettingsLanding({
         </div>
       </div>
 
+      {standalone !== true && (
       <div className="mb-6">
         <div className="text-[11px] uppercase tracking-wide text-[var(--color-text-dim)] mb-2">Account</div>
         <div className="space-y-1.5">
           <SettingsRow glyph="🔑" name="Connect Claude" onClick={() => onPick({ kind: 'claude' })} />
         </div>
       </div>
+      )}
 
       <div className="mb-6">
         <div className="text-[11px] uppercase tracking-wide text-[var(--color-text-dim)] mb-2">Integrations</div>
