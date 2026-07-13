@@ -3033,6 +3033,7 @@ function DeleteWorkspaceButton({ workspaceId }: { workspaceId: string }) {
 // ---------- Claude subscription OAuth (Pro tier) ----------
 
 function ClaudeOauthPanel({ workspaceId, agentId }: { workspaceId: string; agentId: string }) {
+  const standalone = useStandalone()
   const [status, setStatus] = useState<{ online: boolean; auth_mode?: string; error?: string } | null>(null)
   const [token, setToken] = useState('')
   const [busy, setBusy] = useState(false)
@@ -3064,7 +3065,7 @@ function ClaudeOauthPanel({ workspaceId, agentId }: { workspaceId: string; agent
   }
 
   async function disconnect() {
-    if (!confirm('Disconnect Claude subscription? The agent will fall back to the platform API key.')) return
+    if (!confirm(standalone ? 'Disconnect Claude subscription? The agent will fall back to the configured API key.' : 'Disconnect Claude subscription? The agent will fall back to the platform API key.')) return
     setBusy(true); setFeedback(null)
     const r = await fetch(`/api/workspaces/${workspaceId}/agents/${agentId}/claude-oauth/disconnect`, {
       method: 'POST',
@@ -3088,7 +3089,9 @@ function ClaudeOauthPanel({ workspaceId, agentId }: { workspaceId: string; agent
           <div className="text-xs text-[var(--color-text-dim)]">
             {connected
               ? 'LLM calls use your Claude Pro/Max subscription quota.'
-              : 'LLM calls use the platform API key. Connect your Claude account to use your own subscription instead.'}
+              : (standalone
+                  ? 'LLM calls use the API key configured for this server. Connect your Claude account to use your own Pro/Max subscription instead.'
+                  : 'LLM calls use the platform API key. Connect your Claude account to use your own subscription instead.')}
           </div>
         </div>
         {connected ? (
